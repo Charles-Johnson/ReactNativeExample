@@ -1,26 +1,28 @@
 import React, {Component} from 'react';
-import {FlatList, StyleSheet, Text, View } from 'react-native';
-
-
+import {SectionList, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default class HelloWorldApp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-				<FlatList contentContainerStyle={styles.container}
-		  		data={[
-						{key: '첫번째 선택'},
-						{key: '둘번째 선택'},
-						{key: '셋번째 선택'},
-						{key: '넷번째 선택'},
+      <ScrollView contentContainerStyle={styles.container}>
+				<SectionList 
+		  		sections={[
+						{title: '첫번째 선택', data: ['가', '나', '다']},
+						{title: '둘번째 선택', data: ['가', '나']},
+						{title: '셋번째 선택', data: ['가', '나', '다', '라', '가', '나', '다', '라']},
+						{title: '넷번째 선택', data: ['가']},
 					]}
-					renderItem={({item}) =>
-							<View style={styles.option}> 
-								<Text style={styles.text}>{item.key}</Text>
-							</View>
+					renderItem={({item, index, section}) =>
+							<Text style={styles.text}>{item}</Text>
 		  		}
+					renderSectionHeader={({section: {title}}) => (
+						<View style={styles.option}> 
+							<Text style={styles.text}>{title}</Text>
+						</View>
+					)}
+  				keyExtractor={(item, index) => item + index}
 				/>
-      </View>
+      </ScrollView>
     );
   }
 }
